@@ -1,6 +1,7 @@
 package net.pl3x.bukkit.pl3xmoney.manager;
 
 import net.pl3x.bukkit.pl3xmoney.Amount;
+import net.pl3x.bukkit.pl3xmoney.Logger;
 import net.pl3x.bukkit.pl3xmoney.Mob;
 import net.pl3x.bukkit.pl3xmoney.configuration.MobConfig;
 
@@ -26,6 +27,8 @@ public class MobManager {
             }
 
             mobAmounts.put(mob.name(), new Amount(min, max));
+
+            Logger.debug("Loaded mob: " + mob.name() + " min: " + min + " max: " + max);
         }
     }
 
