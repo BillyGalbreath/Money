@@ -61,6 +61,9 @@ public class BukkitListener implements Listener {
 
         Location droppedLocation = entity.getLocation();
         double droppedAmount = amount.getRandom();
+        if (droppedAmount <= 0D) {
+            return; // no amount to drop
+        }
 
         plugin.getMoneyManager().spawnMoney(droppedLocation, droppedAmount);
 
