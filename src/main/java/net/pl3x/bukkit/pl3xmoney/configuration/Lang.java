@@ -12,6 +12,7 @@ public class Lang {
     public static String COMMAND_NO_PERMISSION;
     public static String VERSION;
     public static String RELOAD;
+    public static String RECEIVED_AMOUNT;
 
     public static void reload() {
         Pl3xMoney plugin = Pl3xMoney.getPlugin();
@@ -25,6 +26,7 @@ public class Lang {
         COMMAND_NO_PERMISSION = config.getString("command-no-permission", "&4You do not have permission for that command!");
         VERSION = config.getString("version", "&d{plugin} v{version}.");
         RELOAD = config.getString("reload", "&d{plugin} v{version} reloaded.");
+        RECEIVED_AMOUNT = config.getString("received-amount", "&aYou picked up {amount}");
     }
 
     public static void send(CommandSender recipient, String message) {

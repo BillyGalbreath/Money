@@ -1,3 +1,4 @@
 command-no-permission: "&4You do not have permission for that command!"
 version: "&d{plugin} v{version}."
 reload: "&d{plugin} v{version} reloaded."
+received-amount: "&aYou picked up {amount}"

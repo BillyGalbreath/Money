@@ -5,6 +5,7 @@ import net.pl3x.bukkit.pl3xmoney.Amount;
 import net.pl3x.bukkit.pl3xmoney.Logger;
 import net.pl3x.bukkit.pl3xmoney.Mob;
 import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
+import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -95,9 +96,12 @@ public class BukkitListener implements Listener {
             return;
         }
 
+        String formattedAmount = plugin.getMoneyManager().FORMAT.format(amount);
+        player.sendActionBar(Lang.RECEIVED_AMOUNT
+                .replace("{amount}", formattedAmount));
+
         Logger.debug(player.getName() + " picked up "
-                + plugin.getMoneyManager().FORMAT.format(amount)
-                + " at " + player.getLocation());
+                + formattedAmount + " at " + player.getLocation());
     }
 
     @EventHandler
