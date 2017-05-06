@@ -15,6 +15,10 @@ public class MobConfig extends YamlConfiguration {
         return config;
     }
 
+    public static void reloadConfig() {
+        getConfig().reload();
+    }
+
     private File file = null;
     private final Object saveLock = new Object();
 
@@ -25,19 +29,10 @@ public class MobConfig extends YamlConfiguration {
     }
 
 
-    public void reload() {
+    private void reload() {
         synchronized (saveLock) {
             try {
                 load(file);
-            } catch (Exception ignore) {
-            }
-        }
-    }
-
-    public void save() {
-        synchronized (saveLock) {
-            try {
-                save(file);
             } catch (Exception ignore) {
             }
         }

@@ -3,6 +3,7 @@ package net.pl3x.bukkit.pl3xmoney.command;
 import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
 import net.pl3x.bukkit.pl3xmoney.configuration.Config;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
+import net.pl3x.bukkit.pl3xmoney.configuration.MobConfig;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -35,6 +36,9 @@ public class CmdPl3xMoney implements TabExecutor {
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
             Config.reload();
             Lang.reload();
+
+            MobConfig.reloadConfig();
+            plugin.getMobManager().reloadMobs();
 
             Lang.send(sender, Lang.RELOAD
                     .replace("{plugin}", plugin.getName())

@@ -43,7 +43,7 @@ public class Pl3xMoney extends JavaPlugin {
             return;
         }
 
-        getMobManager(); // load mob data
+        getMobManager().reloadMobs(); // load mob data
 
         getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 

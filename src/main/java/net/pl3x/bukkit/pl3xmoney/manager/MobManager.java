@@ -9,10 +9,6 @@ import java.util.HashMap;
 public class MobManager {
     private final HashMap<String, Amount> mobAmounts = new HashMap<>();
 
-    public MobManager() {
-        reloadMobs();
-    }
-
     public void reloadMobs() {
         mobAmounts.clear();
 
