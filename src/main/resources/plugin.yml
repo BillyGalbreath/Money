@@ -1,0 +1,17 @@
+name: ${project.artifactId}
+main: ${project.groupId}.${project.artifactId}
+version: ${project.version}
+description: ${project.artifactId} Bukkit Plugin
+author: BillyGalbreath
+softdepend:
+- Vault
+
+commands:
+    pl3xmoney:
+        description: Reload configs
+        usage: /<command> (reload)
+
+permissions:
+    command.pl3xmoney:
+        description: Allows reload configs
+        default: op
