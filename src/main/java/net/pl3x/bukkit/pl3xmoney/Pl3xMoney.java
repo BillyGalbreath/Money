@@ -5,6 +5,7 @@ import net.pl3x.bukkit.pl3xmoney.configuration.Config;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import net.pl3x.bukkit.pl3xmoney.listener.BukkitListener;
+import net.pl3x.bukkit.pl3xmoney.manager.MobManager;
 import net.pl3x.bukkit.pl3xmoney.manager.MoneyManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Pl3xMoney extends JavaPlugin {
     private MoneyManager moneyManager;
+    private MobManager mobManager;
 
     @Override
     public void onEnable() {
@@ -40,6 +42,8 @@ public class Pl3xMoney extends JavaPlugin {
             Logger.error("# This plugin requires a Vault compatible Economy plugin to be installed!");
             return;
         }
+
+        getMobManager(); // load mob data
 
         getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 
@@ -69,5 +73,12 @@ public class Pl3xMoney extends JavaPlugin {
             moneyManager = new MoneyManager();
         }
         return moneyManager;
+    }
+
+    public MobManager getMobManager() {
+        if (mobManager == null) {
+            mobManager = new MobManager();
+        }
+        return mobManager;
     }
 }

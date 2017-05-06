@@ -16,8 +16,8 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MoneyManager {
-    private final NumberFormat FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
     private final ParsePosition PPOS = new ParsePosition(0);
+    public final NumberFormat FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
 
     public boolean isMoney(Item item) {
         if (!item.isCustomNameVisible()) {

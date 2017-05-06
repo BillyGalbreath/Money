@@ -1,0 +1,12 @@
+ZOMBIE:
+  min: 0.01
+  max: 0.15
+SKELETON:
+  min: 0.01
+  max: 0.25
+CREEPER:
+  min: 0.01
+  max: 0.25
+CHARGED_CREEPER:
+  min: 0.50
+  max: 2.00
