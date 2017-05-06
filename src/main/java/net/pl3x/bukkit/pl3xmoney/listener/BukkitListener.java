@@ -41,11 +41,9 @@ public class BukkitListener implements Listener {
     @EventHandler
     public void onEntityPickupItem(EntityPickupItemEvent event) {
         Item item = event.getItem();
-        if (!plugin.getMoneyManager().isMoney(item)) {
-            return;
+        if (plugin.getMoneyManager().isMoney(item)) {
+            item.setCanEntityPickup(false);
+            event.setCancelled(true);
         }
-
-        item.setCanEntityPickup(false);
-        event.setCancelled(true);
     }
 }

@@ -20,6 +20,6 @@ public class Config {
         DEBUG_MODE = config.getBoolean("debug-mode", false);
         LANGUAGE_FILE = config.getString("language-file", "lang-en.yml");
         MEDIUM_AMOUNT = config.getDouble("medium-amount", 5.0);
-        MEDIUM_AMOUNT = config.getDouble("large-amount", 10.0);
+        LARGE_AMOUNT = config.getDouble("large-amount", 10.0);
     }
 }
