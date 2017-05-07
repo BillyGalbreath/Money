@@ -48,6 +48,7 @@ public class MoneyManager {
             return Double.MIN_VALUE; // not a money item
         }
 
+        PPOS.setIndex(0); // reset the index
         Number number = FORMAT.parse(item.getCustomName(), PPOS);
         if (number == null) {
             return Double.MIN_VALUE;
