@@ -1,5 +1,6 @@
 package net.pl3x.bukkit.pl3xmoney.listener;
 
+import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.pl3x.bukkit.pl3xmoney.Amount;
 import net.pl3x.bukkit.pl3xmoney.Logger;
@@ -84,8 +85,8 @@ public class BukkitListener implements Listener {
         }
 
         String formattedAmount = plugin.getMoneyManager().FORMAT.format(amount);
-        player.sendActionBar(Lang.RECEIVED_AMOUNT
-                .replace("{amount}", formattedAmount));
+        player.sendActionBar(ChatColor.translateAlternateColorCodes('&',
+                Lang.RECEIVED_AMOUNT.replace("{amount}", formattedAmount)));
 
         Logger.debug(player.getName() + " picked up "
                 + formattedAmount + " at " + player.getLocation());
