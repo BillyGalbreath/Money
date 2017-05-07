@@ -78,6 +78,8 @@ public class BukkitListener implements Listener {
         event.setCancelled(true);
 
         Player player = event.getPlayer();
+        // Fix this up with Paper PR #683 if it gets accepted
+        // https://github.com/PaperMC/Paper/pull/683
         ((CraftPlayer) player).getHandle().receive(((CraftItem) item).getHandle(), 1);
         item.remove();
 
