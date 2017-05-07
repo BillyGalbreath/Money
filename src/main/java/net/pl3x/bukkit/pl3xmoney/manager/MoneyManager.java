@@ -43,10 +43,6 @@ public class MoneyManager {
     }
 
     public double getAmount(Item item) {
-        if (!isMoney(item)) {
-            return Double.MIN_VALUE; // not a money item
-        }
-
         Number number = FORMAT.parse(item.getCustomName(), new ParsePosition(0));
         if (number == null) {
             return Double.MIN_VALUE;
