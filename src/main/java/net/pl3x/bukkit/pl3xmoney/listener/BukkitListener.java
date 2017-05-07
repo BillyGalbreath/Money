@@ -73,7 +73,7 @@ public class BukkitListener implements Listener {
         }
 
         item.remove();
-        event.setCancelled(false);
+        event.setCancelled(true);
 
         Player player = event.getPlayer();
         EconomyResponse response = VaultHook.getEconomy().depositPlayer(player, amount);
