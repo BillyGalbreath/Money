@@ -9,6 +9,8 @@ import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
@@ -73,10 +75,12 @@ public class BukkitListener implements Listener {
             return;
         }
 
-        item.remove();
         event.setCancelled(true);
 
         Player player = event.getPlayer();
+        ((CraftPlayer) player).getHandle().receive(((CraftItem) item).getHandle(), 1);
+        item.remove();
+
         EconomyResponse response = VaultHook.getEconomy().depositPlayer(player, amount);
         if (!response.transactionSuccess()) {
             Logger.error("Error giving " + player.getName() + " money: ");
