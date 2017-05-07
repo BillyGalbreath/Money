@@ -62,16 +62,17 @@ public class MoneyManager {
                 : (amount < Config.LARGE_AMOUNT ? Material.GOLD_INGOT
                 : Material.GOLD_BLOCK), 1);
 
+        String formattedAmount = FORMAT.format(amount);
         ItemMeta meta = stack.getItemMeta();
         List<String> lore = new ArrayList<>();
         lore.add("Pl3xMoney");
-        lore.add("Amount: " + amount);
+        lore.add("Amount: " + formattedAmount);
         lore.add(String.valueOf(ThreadLocalRandom.current().nextInt()));
         meta.setLore(lore);
         stack.setItemMeta(meta);
 
         Item item = location.getWorld().dropItemNaturally(location, stack);
-        item.setCustomName(FORMAT.format(amount));
+        item.setCustomName(formattedAmount);
         item.setCustomNameVisible(true);
         item.setCanEntityPickup(false);
 
