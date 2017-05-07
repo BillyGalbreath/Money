@@ -16,7 +16,6 @@ import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MoneyManager {
-    private final ParsePosition PPOS = new ParsePosition(0);
     public final NumberFormat FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
 
     public boolean isMoney(Item item) {
@@ -48,8 +47,7 @@ public class MoneyManager {
             return Double.MIN_VALUE; // not a money item
         }
 
-        PPOS.setIndex(0); // reset the index
-        Number number = FORMAT.parse(item.getCustomName(), PPOS);
+        Number number = FORMAT.parse(item.getCustomName(), new ParsePosition(0));
         if (number == null) {
             return Double.MIN_VALUE;
         }
