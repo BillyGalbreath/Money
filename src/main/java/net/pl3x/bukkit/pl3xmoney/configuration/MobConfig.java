@@ -16,6 +16,7 @@ public class MobConfig extends YamlConfiguration {
     }
 
     public static void reloadConfig() {
+        Pl3xMoney.getPlugin().saveResource("mobs.yml", false);
         getConfig().reload();
     }
 

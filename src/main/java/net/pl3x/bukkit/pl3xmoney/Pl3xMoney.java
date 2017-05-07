@@ -3,6 +3,7 @@ package net.pl3x.bukkit.pl3xmoney;
 import net.pl3x.bukkit.pl3xmoney.command.CmdPl3xMoney;
 import net.pl3x.bukkit.pl3xmoney.configuration.Config;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
+import net.pl3x.bukkit.pl3xmoney.configuration.MobConfig;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import net.pl3x.bukkit.pl3xmoney.listener.BukkitListener;
 import net.pl3x.bukkit.pl3xmoney.manager.MobManager;
@@ -21,6 +22,7 @@ public class Pl3xMoney extends JavaPlugin {
     public void onEnable() {
         Config.reload();
         Lang.reload();
+        MobConfig.reloadConfig();
 
         try {
             Class.forName("org.bukkit.event.entity.EntityPickupItemEvent");
