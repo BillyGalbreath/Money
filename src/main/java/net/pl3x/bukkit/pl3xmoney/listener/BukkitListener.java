@@ -26,23 +26,10 @@ public class BukkitListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDeath(EntityDeathEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (entity.getType() != EntityType.PLAYER) {
-            return; // only handle players here
-        }
-
-        // drop % of player's money
-        //
-        //
-        //
-    }
-
-    @EventHandler
     public void onMobDeath(EntityDeathEvent event) {
         LivingEntity entity = event.getEntity();
         if (entity.getType() == EntityType.PLAYER) {
-            return; // only handle mobs here
+            return; // only handle mob deaths
         }
 
         Player killer = entity.getKiller();
