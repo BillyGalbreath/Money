@@ -9,8 +9,8 @@ import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftItem;
-import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
@@ -19,7 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
 
 public class BukkitListener implements Listener {
     private final Pl3xMoney plugin;
@@ -64,7 +64,7 @@ public class BukkitListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerPickupMoney(PlayerPickupItemEvent event) {
+    public void onPlayerAttemptPickupMoney(PlayerAttemptPickupItemEvent event) {
         Item item = event.getItem();
         if (!plugin.getMoneyManager().isMoney(item)) {
             return;
@@ -75,11 +75,12 @@ public class BukkitListener implements Listener {
             return;
         }
 
-        event.setCancelled(true);
+        // pretty much cancels the event
+        item.getItemStack().setAmount(0);
 
-        Player player = event.getPlayer();
         // Fix this up with Paper PR #683 if it gets accepted
         // https://github.com/PaperMC/Paper/pull/683
+        Player player = event.getPlayer();
         ((CraftPlayer) player).getHandle().receive(((CraftItem) item).getHandle(), 1);
         item.remove();
 
@@ -102,7 +103,7 @@ public class BukkitListener implements Listener {
     public void onMobPickupMoney(EntityPickupItemEvent event) {
         Item item = event.getItem();
         if (plugin.getMoneyManager().isMoney(item)) {
-            item.setCanEntityPickup(false);
+            item.setCanMobPickup(false);
             event.setCancelled(true);
         }
     }

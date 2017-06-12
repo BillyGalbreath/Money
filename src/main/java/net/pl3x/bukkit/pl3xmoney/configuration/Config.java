@@ -1,7 +1,7 @@
 package net.pl3x.bukkit.pl3xmoney.configuration;
 
-import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class Config {
     public static boolean COLOR_LOGS = true;
@@ -10,8 +10,10 @@ public class Config {
     public static double MEDIUM_AMOUNT = 5.0;
     public static double LARGE_AMOUNT = 10.0;
 
-    public static void reload() {
-        Pl3xMoney plugin = Pl3xMoney.getPlugin();
+    private Config() {
+    }
+
+    public static void reload(JavaPlugin plugin) {
         plugin.saveDefaultConfig();
         plugin.reloadConfig();
         FileConfiguration config = plugin.getConfig();

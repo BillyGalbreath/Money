@@ -5,28 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.pl3x.bukkit.pl3xmoney</groupId>
     <artifactId>Pl3xMoney</artifactId>
-    <version>1.0</version>
+    <version>1.12-b${build}</version>
     <packaging>jar</packaging>
     <properties>
+        <build>SNAPSHOT</build>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
-            <artifactId>paper-api</artifactId>
-            <version>1.11.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper</artifactId>
-            <version>1.11.2-R0.1-SNAPSHOT</version>
+            <version>1.12-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.6</version>
+            <version>1.5</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -41,8 +36,8 @@
         </repository>
     </repositories>
     <build>
-        <finalName>${project.artifactId}</finalName>
-        <defaultGoal>clean package install</defaultGoal>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <defaultGoal>clean package install javadoc:javadoc</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -53,11 +48,21 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <configuration>
+                    <links>
+                        <link>https://hub.spigotmc.org/javadocs/spigot/</link>
+                    </links>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
     </build>

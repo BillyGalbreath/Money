@@ -9,6 +9,7 @@ softdepend:
 commands:
     pl3xmoney:
         description: Reload configs
+        permission: command.pl3xmoney
         usage: /<command> (reload)
 
 permissions:

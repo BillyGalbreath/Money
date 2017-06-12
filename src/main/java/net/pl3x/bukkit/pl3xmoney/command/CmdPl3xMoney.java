@@ -34,8 +34,8 @@ public class CmdPl3xMoney implements TabExecutor {
         }
 
         if (args.length > 0 && args[0].equalsIgnoreCase("reload")) {
-            Config.reload();
-            Lang.reload();
+            Config.reload(plugin);
+            Lang.reload(plugin);
 
             MobConfig.reloadConfig();
             plugin.getMobManager().reloadMobs();

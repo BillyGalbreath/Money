@@ -5,6 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 
@@ -14,13 +15,13 @@ public class Lang {
     public static String RELOAD;
     public static String RECEIVED_AMOUNT;
 
-    public static void reload() {
-        Pl3xMoney plugin = Pl3xMoney.getPlugin();
+    private Lang() {
+    }
+
+    public static void reload(JavaPlugin plugin) {
         String langFile = Config.LANGUAGE_FILE;
         File configFile = new File(plugin.getDataFolder(), langFile);
-        if (!configFile.exists()) {
-            plugin.saveResource(Config.LANGUAGE_FILE, false);
-        }
+        plugin.saveResource(Config.LANGUAGE_FILE, false);
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
         COMMAND_NO_PERMISSION = config.getString("command-no-permission", "&4You do not have permission for that command!");

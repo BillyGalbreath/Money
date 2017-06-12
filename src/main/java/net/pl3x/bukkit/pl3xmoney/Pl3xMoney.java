@@ -20,13 +20,14 @@ public class Pl3xMoney extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Config.reload();
-        Lang.reload();
+        Config.reload(this);
+        Lang.reload(this);
         MobConfig.reloadConfig();
 
         try {
+            Class.forName("org.bukkit.event.player.PlayerAttemptPickupItemEvent");
             Class.forName("org.bukkit.event.entity.EntityPickupItemEvent");
-            Item.class.getMethod("canEntityPickup", (Class<?>[]) null);
+            Item.class.getMethod("canMobPickup", (Class<?>[]) null);
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             Logger.error("# Missing needed classes/methods!");
             Logger.error("# This plugin is only compatible with Paper servers!");

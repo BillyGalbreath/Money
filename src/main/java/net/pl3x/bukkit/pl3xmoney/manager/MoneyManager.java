@@ -69,7 +69,7 @@ public class MoneyManager {
         Item item = location.getWorld().dropItemNaturally(location, stack);
         item.setCustomName(formattedAmount);
         item.setCustomNameVisible(true);
-        item.setCanEntityPickup(false);
+        item.setCanMobPickup(false);
 
         return item;
     }
