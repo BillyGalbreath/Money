@@ -5,6 +5,7 @@ description: ${project.artifactId} Bukkit Plugin
 author: BillyGalbreath
 softdepend:
 - Vault
+- CraftBook
 
 commands:
     pl3xmoney:

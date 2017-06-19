@@ -9,8 +9,6 @@ import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftItem;
-import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
@@ -19,7 +17,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class BukkitListener implements Listener {
     private final Pl3xMoney plugin;
@@ -33,6 +33,14 @@ public class BukkitListener implements Listener {
         LivingEntity entity = event.getEntity();
         if (entity.getType() == EntityType.PLAYER) {
             return; // only handle mob deaths
+        }
+
+        if (!entity.hasAI()) {
+            return; // mob doesnt have AI
+        }
+
+        if (entity.fromMobSpawner()) {
+            return; // mob came from spawner cage
         }
 
         Player killer = entity.getKiller();
@@ -75,15 +83,17 @@ public class BukkitListener implements Listener {
             return;
         }
 
-        // pretty much cancels the event
-        item.getItemStack().setAmount(0);
+        event.setCancelled(true);
+        event.setFlyAtPlayer(true);
 
-        // Fix this up with Paper PR #683 if it gets accepted
-        // https://github.com/PaperMC/Paper/pull/683
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                item.remove();
+            }
+        }.runTaskLater(plugin, 1);
+
         Player player = event.getPlayer();
-        ((CraftPlayer) player).getHandle().receive(((CraftItem) item).getHandle(), 1);
-        item.remove();
-
         EconomyResponse response = VaultHook.getEconomy().depositPlayer(player, amount);
         if (!response.transactionSuccess()) {
             Logger.error("Error giving " + player.getName() + " money: ");
@@ -104,6 +114,14 @@ public class BukkitListener implements Listener {
         Item item = event.getItem();
         if (plugin.getMoneyManager().isMoney(item)) {
             item.setCanMobPickup(false);
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onHopperPickupMoney(InventoryPickupItemEvent event) {
+        Item item = event.getItem();
+        if (plugin.getMoneyManager().isMoney(item)) {
             event.setCancelled(true);
         }
     }

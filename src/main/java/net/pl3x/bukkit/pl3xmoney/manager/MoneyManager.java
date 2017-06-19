@@ -1,10 +1,10 @@
 package net.pl3x.bukkit.pl3xmoney.manager;
 
 import net.pl3x.bukkit.pl3xmoney.Logger;
-import net.pl3x.bukkit.pl3xmoney.configuration.Config;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -28,17 +28,40 @@ public class MoneyManager {
             return false; // no name or not a money value
         }
 
-        ItemStack stack = item.getItemStack();
+        if (!isMoney(item.getItemStack())) {
+            return false;
+        }
+
+        Logger.debug("Scanned Money Item: " + item.toString());
+        return true;
+    }
+
+    public boolean isMoney(ItemStack stack) {
+        if (stack.getType() != Material.DIAMOND_HOE) {
+            return false; // not new item
+        }
+
+        //noinspection deprecation
+        if (stack.getData().getData() != 103 && stack.getData().getData() != 104) {
+            return false;
+        }
+
         if (!stack.hasItemMeta()) {
             return false; // no meta
         }
 
         ItemMeta meta = stack.getItemMeta();
+        for (ItemFlag flag : ItemFlag.values()) {
+            if (!meta.getItemFlags().contains(flag)) {
+                return false; // must contain all flags
+            }
+        }
+
         if (!meta.hasLore() || !meta.getLore().contains("Pl3xMoney")) {
             return false; // no lore or missing lore text
         }
 
-        Logger.debug("Scanned Money Item: " + item.toString());
+        // is money stack
         return true;
     }
 
@@ -53,17 +76,20 @@ public class MoneyManager {
     }
 
     public Item spawnMoney(Location location, double amount) {
-        ItemStack stack = new ItemStack(amount < Config.MEDIUM_AMOUNT ? Material.GOLD_NUGGET
-                : (amount < Config.LARGE_AMOUNT ? Material.GOLD_INGOT
-                : Material.GOLD_BLOCK), 1);
+        ItemStack stack = new ItemStack(Material.DIAMOND_HOE, 1, (short) (amount < 1.0D ? 103 : 104));
 
         String formattedAmount = FORMAT.format(amount);
         ItemMeta meta = stack.getItemMeta();
+
         List<String> lore = new ArrayList<>();
         lore.add("Pl3xMoney");
         lore.add("Amount: " + formattedAmount);
         lore.add(String.valueOf(ThreadLocalRandom.current().nextInt()));
         meta.setLore(lore);
+
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.values());
+
         stack.setItemMeta(meta);
 
         Item item = location.getWorld().dropItemNaturally(location, stack);

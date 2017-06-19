@@ -6,11 +6,14 @@ import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.configuration.MobConfig;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import net.pl3x.bukkit.pl3xmoney.listener.BukkitListener;
+import net.pl3x.bukkit.pl3xmoney.listener.CraftBookListener;
 import net.pl3x.bukkit.pl3xmoney.manager.MobManager;
 import net.pl3x.bukkit.pl3xmoney.manager.MoneyManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,7 +30,7 @@ public class Pl3xMoney extends JavaPlugin {
         try {
             Class.forName("org.bukkit.event.player.PlayerAttemptPickupItemEvent");
             Class.forName("org.bukkit.event.entity.EntityPickupItemEvent");
-            Item.class.getMethod("canMobPickup", (Class<?>[]) null);
+            Item.class.getMethod("canMobPickup");
         } catch (ClassNotFoundException | NoSuchMethodException e) {
             Logger.error("# Missing needed classes/methods!");
             Logger.error("# This plugin is only compatible with Paper servers!");
@@ -50,6 +53,11 @@ public class Pl3xMoney extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 
+        if (getServer().getPluginManager().isPluginEnabled("CraftBook")) {
+            Logger.info("CraftBook found. Hooking into it...");
+            getServer().getPluginManager().registerEvents(new CraftBookListener(this), this);
+        }
+
         getCommand("pl3xmoney").setExecutor(new CmdPl3xMoney(this));
 
         Logger.info(getName() + " v" + getDescription().getVersion() + " enabled!");
@@ -57,6 +65,10 @@ public class Pl3xMoney extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getWorlds().forEach(world -> world.getLivingEntities().stream()
+                .filter(Entity::fromMobSpawner)
+                .forEach(Entity::remove));
+
         Logger.info(getName() + " disabled.");
     }
 
