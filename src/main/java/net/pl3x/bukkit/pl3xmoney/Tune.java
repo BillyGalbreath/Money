@@ -9,8 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Tune {
-    COIN_PICKUP(Sound.BLOCK_NOTE_BELL, Arrays.asList(18, 23)),
-    PIPE_WARP(Sound.BLOCK_NOTE_GUITAR, Arrays.asList(15, 10, 3, -1, -1, -1, 15, 10, 3, -1, -1, -1, 15, 10, 3));
+    COIN_PICKUP(Sound.BLOCK_NOTE_BELL, Arrays.asList(18, 23));
 
     private Sound sound;
     private List<Integer> tune;
