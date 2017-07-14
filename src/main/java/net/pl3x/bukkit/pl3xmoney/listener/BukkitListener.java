@@ -6,6 +6,7 @@ import net.pl3x.bukkit.pl3xmoney.Amount;
 import net.pl3x.bukkit.pl3xmoney.Logger;
 import net.pl3x.bukkit.pl3xmoney.Mob;
 import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
+import net.pl3x.bukkit.pl3xmoney.Tune;
 import net.pl3x.bukkit.pl3xmoney.configuration.Lang;
 import net.pl3x.bukkit.pl3xmoney.hook.VaultHook;
 import org.bukkit.Location;
@@ -94,6 +95,8 @@ public class BukkitListener implements Listener {
         }.runTaskLater(plugin, 1);
 
         Player player = event.getPlayer();
+        Tune.COIN_PICKUP.playerTune(plugin, player);
+
         EconomyResponse response = VaultHook.getEconomy().depositPlayer(player, amount);
         if (!response.transactionSuccess()) {
             Logger.error("Error giving " + player.getName() + " money: ");
