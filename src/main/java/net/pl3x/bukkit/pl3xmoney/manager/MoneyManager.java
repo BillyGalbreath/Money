@@ -51,10 +51,9 @@ public class MoneyManager {
         }
 
         ItemMeta meta = stack.getItemMeta();
-        for (ItemFlag flag : ItemFlag.values()) {
-            if (!meta.getItemFlags().contains(flag)) {
-                return false; // must contain all flags
-            }
+        if (!meta.getItemFlags().contains(ItemFlag.HIDE_ATTRIBUTES) ||
+                !meta.getItemFlags().contains(ItemFlag.HIDE_UNBREAKABLE)) {
+            return false; // must contain all flags
         }
 
         if (!meta.hasLore() || !meta.getLore().contains("Pl3xMoney")) {
@@ -88,7 +87,8 @@ public class MoneyManager {
         meta.setLore(lore);
 
         meta.setUnbreakable(true);
-        meta.addItemFlags(ItemFlag.values());
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 
         stack.setItemMeta(meta);
 

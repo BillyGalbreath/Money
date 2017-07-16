@@ -95,7 +95,7 @@ public class BukkitListener implements Listener {
         }.runTaskLater(plugin, 1);
 
         Player player = event.getPlayer();
-        Tune.COIN_PICKUP.playerTune(plugin, player);
+        Tune.COIN_PICKUP.playTune(plugin, player);
 
         EconomyResponse response = VaultHook.getEconomy().depositPlayer(player, amount);
         if (!response.transactionSuccess()) {

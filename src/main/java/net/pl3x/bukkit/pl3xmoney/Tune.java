@@ -19,7 +19,7 @@ public enum Tune {
         this.tune = tune;
     }
 
-    public void playerTune(JavaPlugin plugin, Player player) {
+    public void playTune(JavaPlugin plugin, Player player) {
         int i = 0;
         for (Integer clicks : tune) {
             i++;
