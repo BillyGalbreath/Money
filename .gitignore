@@ -17,3 +17,6 @@ target/
 
 # Floobits
 .floo*
+
+# Do not redistribute
+/lib/ItemsAdder*.jar

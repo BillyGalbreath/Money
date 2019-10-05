@@ -3,25 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.pl3x.bukkit.pl3xmoney</groupId>
-    <artifactId>Pl3xMoney</artifactId>
-    <version>1.12-b${build}</version>
+    <groupId>net.pl3x.bukkit</groupId>
+    <artifactId>money</artifactId>
+    <name>Money</name>
+    <version>2.0</version>
     <packaging>jar</packaging>
     <properties>
-        <build>SNAPSHOT</build>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.destroystokyo.paper</groupId>
-            <artifactId>paper</artifactId>
-            <version>1.12-R0.1-SNAPSHOT</version>
+            <groupId>net.pl3x.purpur</groupId>
+            <artifactId>purpur-api</artifactId>
+            <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -31,11 +31,18 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/craftbook-3.9-SNAPSHOT-b156.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>dev.lone.itemsadder.api</groupId>
+            <artifactId>ItemsAdder</artifactId>
+            <version>1.1.28</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/ItemsAdder-1.1.28.jar</systemPath>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
-            <id>paper-repo</id>
-            <url>https://repo.destroystokyo.com/repository/maven-public/</url>
+            <id>pl3x-repo</id>
+            <url>https://repo.pl3x.net/</url>
         </repository>
         <repository>
             <id>vault-repo</id>
@@ -43,7 +50,7 @@
         </repository>
     </repositories>
     <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
+        <finalName>${project.name}</finalName>
         <defaultGoal>clean package install javadoc:javadoc</defaultGoal>
         <plugins>
             <plugin>
@@ -53,16 +60,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <links>
-                        <link>https://hub.spigotmc.org/javadocs/spigot/</link>
-                    </links>
                 </configuration>
             </plugin>
         </plugins>

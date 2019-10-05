@@ -1,12 +1,13 @@
-package net.pl3x.bukkit.pl3xmoney.configuration;
+package net.pl3x.bukkit.money.configuration;
 
-import net.pl3x.bukkit.pl3xmoney.Pl3xMoney;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 
 public class MobConfig extends YamlConfiguration {
     private static MobConfig config;
+    private static Plugin instance;
 
     public static MobConfig getConfig() {
         if (config == null) {
@@ -15,17 +16,20 @@ public class MobConfig extends YamlConfiguration {
         return config;
     }
 
-    public static void reloadConfig() {
-        Pl3xMoney.getPlugin().saveResource("mobs.yml", false);
+    public static void reload(Plugin plugin) {
+        instance = plugin;
+        if (!new File(instance.getDataFolder(), "mobs.yml").exists()) {
+            instance.saveResource("mobs.yml", false);
+        }
         getConfig().reload();
     }
 
-    private File file = null;
+    private File file;
     private final Object saveLock = new Object();
 
     private MobConfig() {
         super();
-        file = new File(Pl3xMoney.getPlugin().getDataFolder(), "mobs.yml");
+        file = new File(instance.getDataFolder(), "mobs.yml");
         reload();
     }
 

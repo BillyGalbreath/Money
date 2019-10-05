@@ -1,19 +1,20 @@
-name: ${project.artifactId}
-main: ${project.groupId}.${project.artifactId}
-version: ${project.version}
-description: ${project.artifactId} Bukkit Plugin
-author: BillyGalbreath
+name: "${project.name}"
+main: "${project.groupId}.${project.artifactId}.${project.name}"
+version: "${project.version}"
+description: "${project.name} Purpur Plugin"
+author: "BillyGalbreath"
+api-version: "1.14"
 softdepend:
 - Vault
 - CraftBook
 
 commands:
-    pl3xmoney:
+    money:
         description: Reload configs
-        permission: command.pl3xmoney
+        permission: command.money
         usage: /<command> (reload)
 
 permissions:
-    command.pl3xmoney:
+    command.money:
         description: Allows reload configs
         default: op

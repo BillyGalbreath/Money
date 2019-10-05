@@ -1,4 +1,4 @@
-package net.pl3x.bukkit.pl3xmoney.hook;
+package net.pl3x.bukkit.money.hook;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -12,9 +12,9 @@ public class VaultHook {
     }
 
     public static boolean setupEconomy() {
-        RegisteredServiceProvider<Economy> economyProvider = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-        if (economyProvider != null) {
-            economy = economyProvider.getProvider();
+        RegisteredServiceProvider<Economy> provider = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
+        if (provider != null) {
+            economy = provider.getProvider();
         }
         return (economy != null);
     }

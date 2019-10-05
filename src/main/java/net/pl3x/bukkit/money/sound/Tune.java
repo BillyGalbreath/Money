@@ -1,4 +1,4 @@
-package net.pl3x.bukkit.pl3xmoney;
+package net.pl3x.bukkit.money.sound;
 
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Tune {
-    COIN_PICKUP(Sound.BLOCK_NOTE_BELL, Arrays.asList(18, 23));
+    COIN_PICKUP(Sound.BLOCK_NOTE_BLOCK_BELL, Arrays.asList(18, 23));
 
     private Sound sound;
     private List<Integer> tune;
