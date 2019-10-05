@@ -19,4 +19,4 @@ target/
 .floo*
 
 # Do not redistribute
-/lib/ItemsAdder*.jar
+/lib/*.jar
