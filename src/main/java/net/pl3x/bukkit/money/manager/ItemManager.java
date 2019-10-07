@@ -13,15 +13,16 @@ public class ItemManager {
     public static final NumberFormat FORMAT = NumberFormat.getCurrencyInstance(Locale.US);
 
     public static boolean isMoney(Item item) {
-        if (item.getCustomName() != null && !item.isCustomNameVisible()) {
-            return false;
+        if (!isMoney(item.getItemStack())) {
+            return false; // not a custom coin/banknote item
         }
 
-        if (getAmount(item) > 0.0D) {
-            return false;
+        if (item.getCustomName() == null || !item.isCustomNameVisible()) {
+            return false; // does not have a name/value
         }
 
-        return isMoney(item.getItemStack());
+        // true if amount is greater than 0
+        return getAmount(item) > 0.0D;
     }
 
     public static boolean isMoney(ItemStack stack) {

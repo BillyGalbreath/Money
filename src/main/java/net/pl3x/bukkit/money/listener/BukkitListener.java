@@ -18,7 +18,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerAttemptPickupItemEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class BukkitListener implements Listener {
     private final Money plugin;
@@ -47,7 +46,7 @@ public class BukkitListener implements Listener {
         }
 
         double amount = MobManager.getMobAmount(entity.getType());
-        if (amount <= 0D) {
+        if (amount < 0.01D) {
             return; // no amount to drop
         }
 
@@ -77,9 +76,6 @@ public class BukkitListener implements Listener {
             return; // could not pay the player
         }
 
-        // make it appear like it's being picked up
-        event.setFlyAtPlayer(true);
-
         // play a unique sound
         Tune.COIN_PICKUP.playTune(plugin, player);
 
@@ -88,13 +84,11 @@ public class BukkitListener implements Listener {
         player.sendActionBar(ChatColor.translateAlternateColorCodes('&',
                 Lang.RECEIVED_AMOUNT.replace("{amount}", formattedAmount)));
 
-        // remove the item after it animates for a bit
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                item.remove();
-            }
-        }.runTaskLater(plugin, 5);
+        // make it appear like it's being picked up
+        event.setFlyAtPlayer(true);
+
+        // remove the item
+        item.remove();
     }
 
     @EventHandler
