@@ -18,7 +18,9 @@ public class Lang {
     public static void reload(Plugin plugin) {
         String langFile = Config.LANGUAGE_FILE;
         File configFile = new File(plugin.getDataFolder(), langFile);
-        plugin.saveResource(Config.LANGUAGE_FILE, false);
+        if (!configFile.exists()) {
+            plugin.saveResource(Config.LANGUAGE_FILE, false);
+        }
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
 
         COMMAND_NO_PERMISSION = config.getString("command-no-permission", "&4You do not have permission for that command!");
