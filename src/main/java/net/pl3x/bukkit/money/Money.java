@@ -24,7 +24,8 @@ public class Money extends JavaPlugin {
     public void onEnable() {
         Config.reload(this);
         Lang.reload(this);
-        MobConfig.reload(this);
+
+        MobManager.reload(this);
 
         if (!getServer().getPluginManager().isPluginEnabled("Vault")) {
             getLogger().severe("Vault NOT found and/or enabled!");
@@ -37,8 +38,6 @@ public class Money extends JavaPlugin {
             getLogger().severe(getName() + "requires a Vault compatible Economy plugin to be installed!");
             return;
         }
-
-        MobManager.reload(); // load mob data
 
         getServer().getPluginManager().registerEvents(new BukkitListener(this), this);
 

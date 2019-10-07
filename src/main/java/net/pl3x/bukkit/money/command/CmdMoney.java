@@ -40,8 +40,7 @@ public class CmdMoney implements TabExecutor {
             Config.reload(plugin);
             Lang.reload(plugin);
 
-            MobConfig.reload(plugin);
-            MobManager.reload();
+            MobManager.reload(plugin);
 
             response += " reloaded";
         }

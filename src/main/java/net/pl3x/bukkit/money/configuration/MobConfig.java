@@ -21,7 +21,7 @@ public class MobConfig extends YamlConfiguration {
         if (!new File(instance.getDataFolder(), "mobs.yml").exists()) {
             instance.saveResource("mobs.yml", false);
         }
-        getConfig().reload();
+        config = null;
     }
 
     private File file;
